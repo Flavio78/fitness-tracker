@@ -1,0 +1,37 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
+    "source.fixAll": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "workbench.editor.enablePreview": false,
+  "workbench.list.openMode": "singleClick",
+  "editor.fontLigatures": true,
+  "editor.fontFamily": "'Cascadia Code', Consolas, 'Courier New', monospace",
+  "[html]": {
+    "editor.fontLigatures": false
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "vscode-edge-devtools.webhint": false,
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "editor.guides.bracketPairs": true,
+  "debug.toolBarLocation": "docked",
+  "prettier.singleQuote": true,
+  "cSpell.words": [
+    "devkit",
+    "jasminewd",
+    "ngrx",
+    "Serializability"
+  ],
+  "angular.enable-strict-mode-prompt": false,
+  "auto-close-tag.disableOnLanguage": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  ]
+}

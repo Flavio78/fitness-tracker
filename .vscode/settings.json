@@ -25,7 +25,8 @@
     "devkit",
     "jasminewd",
     "ngrx",
-    "Serializability"
+    "Serializability",
+    "signup"
   ],
   "angular.enable-strict-mode-prompt": false,
   "auto-close-tag.disableOnLanguage": [

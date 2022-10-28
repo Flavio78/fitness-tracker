@@ -22,6 +22,7 @@
   "debug.toolBarLocation": "docked",
   "prettier.singleQuote": true,
   "cSpell.words": [
+    "birthdate",
     "devkit",
     "jasminewd",
     "ngrx",

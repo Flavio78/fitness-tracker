@@ -131,5 +131,6 @@
     "[x]"
   ],
   "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS).*(\\n\\s*//\\s{2,}.*)*",
-  "markdown.validate.enabled": true
+  "markdown.validate.enabled": true,
+  "editor.parameterHints.enabled": false
 }

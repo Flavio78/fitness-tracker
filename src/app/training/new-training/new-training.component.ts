@@ -10,13 +10,14 @@ import { TrainingService } from '../training.service';
 export class NewTrainingComponent implements OnInit {
   @Output() trainingStart = new EventEmitter<void>();
   exercises: Exercise[] = [];
-  onStartTraining() {
-    this.trainingStart.emit();
-  }
 
   constructor(private trainingService: TrainingService) {}
 
   ngOnInit(): void {
     this.exercises = this.trainingService.getAvailableExercises();
+  }
+
+  onStartTraining() {
+    this.trainingStart.emit();
   }
 }

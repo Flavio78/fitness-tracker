@@ -12,7 +12,7 @@
   "editor.fontFamily": "'Cascadia Code', Consolas, 'Courier New', monospace",
   "[html]": {
     "editor.fontLigatures": false,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.html-language-features"
   },
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"

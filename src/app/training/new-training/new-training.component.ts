@@ -11,7 +11,7 @@ import { TrainingService } from '../training.service';
 })
 export class NewTrainingComponent implements OnInit {
   // exercises: Exercise[] = [];
-  exercises: Observable<any>;
+  exercises: Observable<any[]>;
 
   constructor(
     private trainingService: TrainingService,

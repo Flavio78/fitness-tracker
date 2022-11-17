@@ -10,7 +10,7 @@ import { TrainingService } from '../training.service';
   styleUrls: ['./new-training.component.css'],
 })
 export class NewTrainingComponent implements OnInit {
-  // exercises: Exercise[] = [];
+  //exercises: Exercise[] = [];
   exercises: Observable<any[]>;
 
   constructor(
@@ -19,9 +19,7 @@ export class NewTrainingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.exercises = this.trainingService.getAvailableExercises();
-    // this.itemsCollection = this.db.collection<Exercise>('items');
-    // this.items = this.itemsCollection.valueChanges();
+    //this.exercises = this.trainingService.getAvailableExercises();
     this.exercises = this.db.collection('availableExercises').valueChanges();
   }
 

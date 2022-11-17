@@ -23,9 +23,12 @@
   "debug.toolBarLocation": "docked",
   "prettier.singleQuote": true,
   "cSpell.words": [
+    "appspot",
     "birthdate",
     "burpees",
     "devkit",
+    "firebaseapp",
+    "Firestore",
     "jasminewd",
     "ngrx",
     "Serializability",

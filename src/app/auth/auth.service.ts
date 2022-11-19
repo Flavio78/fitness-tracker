@@ -16,12 +16,34 @@ export class AuthService {
     private trainingService: TrainingService
   ) {}
 
+  /*
+      it is called when the app starts, that is
+      in the App component because this is the very first
+      component tha get instantiated
+  */
+  initAuthListener() {
+    // emit an event whenever the authentication status changes
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
+        // if user is authenticated
+        this.isAuthenticated = true;
+        this.authChange.next(true);
+        this.router.navigate(['/training']);
+      } else {
+        // I execute the code I had in the logout function
+        this.trainingService.cancelSubscriptions();
+        this.authChange.next(false);
+        this.router.navigate(['/login']);
+        this.isAuthenticated = false;
+      }
+    });
+  }
+
   registerUser(authData: AuthData) {
     this.afAuth
       .createUserWithEmailAndPassword(authData.email, authData.password)
       .then((result) => {
         console.log('auth create user result', result);
-        this.authSuccessfully();
       })
       .catch((error) => console.log('error', error));
   }
@@ -31,23 +53,12 @@ export class AuthService {
       .signInWithEmailAndPassword(authData.email, authData.password)
       .then((result) => {
         console.log('auth login user result', result);
-        this.authSuccessfully();
       })
       .catch((error) => console.log('error', error));
   }
 
-  private authSuccessfully() {
-    this.isAuthenticated = true;
-    this.authChange.next(true);
-    this.router.navigate(['/training']);
-  }
-
   logout() {
-    this.trainingService.cancelSubscriptions();
     this.afAuth.signOut();
-    this.authChange.next(false);
-    this.router.navigate(['/login']);
-    this.isAuthenticated = false;
   }
 
   isAuth = () => this.isAuthenticated;

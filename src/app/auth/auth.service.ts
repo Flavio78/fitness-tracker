@@ -1,46 +1,48 @@
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthData } from './auth-data.model';
-import { User } from './user.model';
 
 @Injectable()
 export class AuthService {
-  private user!: User | null;
+  private isAuthenticated = false;
   authChange = new Subject<boolean>();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private afAuth: AngularFireAuth) {}
 
   registerUser(authData: AuthData) {
-    this.user = {
-      email: authData.email,
-      userId: Math.round(Math.random() * 1000).toString(),
-    };
-    this.authSuccessfully();
+    this.afAuth
+      .createUserWithEmailAndPassword(authData.email, authData.password)
+      .then((result) => {
+        console.log('auth create user result', result);
+        this.authSuccessfully();
+      })
+      .catch((error) => console.log('error', error));
   }
 
   login(authData: AuthData) {
-    this.user = {
-      email: authData.email,
-      userId: Math.round(Math.random() * 1000).toString(),
-    };
-    this.authSuccessfully();
+    this.afAuth
+      .signInWithEmailAndPassword(authData.email, authData.password)
+      .then((result) => {
+        console.log('auth login user result', result);
+        this.authSuccessfully();
+      })
+      .catch((error) => console.log('error', error));
   }
+
   private authSuccessfully() {
+    this.isAuthenticated = true;
     this.authChange.next(true);
     this.router.navigate(['/training']);
   }
 
   logout() {
-    this.user = null;
+    this.afAuth.signOut();
     this.authChange.next(false);
     this.router.navigate(['/login']);
+    this.isAuthenticated = false;
   }
-  getUser() {
-    // I return a new object to prevent this object, passed as reference, to be changed from other part of the code
-    return { ...this.user };
-  }
-  isAuth() {
-    return !!this.user;
-  }
+
+  isAuth = () => this.isAuthenticated;
 }

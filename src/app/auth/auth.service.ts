@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { TrainingService } from '../training/training.service';
 import { AuthData } from './auth-data.model';
+import { UIService } from './shared/ui.service';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +15,9 @@ export class AuthService {
   constructor(
     private router: Router,
     private afAuth: AngularFireAuth,
-    private trainingService: TrainingService
+    private trainingService: TrainingService,
+    private snackbar: MatSnackBar,
+    private uiService: UIService
   ) {}
 
   /*
@@ -40,21 +44,34 @@ export class AuthService {
   }
 
   registerUser(authData: AuthData) {
+    this.uiService.loadingStateChanged.next(true);
     this.afAuth
       .createUserWithEmailAndPassword(authData.email, authData.password)
       .then((result) => {
         console.log('auth create user result', result);
+        this.uiService.loadingStateChanged.next(false);
       })
-      .catch((error) => console.log('error', error));
+      .catch((error) => {
+        console.log('error', error);
+        this.uiService.loadingStateChanged.next(false);
+        // 2nd argument is null because we don't want to set an action
+        this.snackbar.open(error.message, null, { duration: 3000 });
+      });
   }
 
   login(authData: AuthData) {
+    this.uiService.loadingStateChanged.next(true);
     this.afAuth
       .signInWithEmailAndPassword(authData.email, authData.password)
       .then((result) => {
         console.log('auth login user result', result);
+        this.uiService.loadingStateChanged.next(false);
       })
-      .catch((error) => console.log('error', error));
+      .catch((error) => {
+        console.log('error', error);
+        this.uiService.loadingStateChanged.next(false);
+        this.snackbar.open(error.message, null, { duration: 3000 });
+      });
   }
 
   logout() {

@@ -26,6 +26,7 @@ export class TrainingService {
         .pipe(
           map((docArray) => {
             return docArray.map((doc) => {
+              // throw new Error('Forced Error');
               return {
                 id: doc.payload.doc.id,
                 ...(doc.payload.doc.data() as Exercise),
@@ -41,6 +42,13 @@ export class TrainingService {
           },
           error: (error) => {
             console.log('sub fetch exes error', error);
+            this.uiService.loadingStateChanged.next(false);
+            this.uiService.showSnackbar(
+              'Fetching exercise failed, please try again later',
+              null,
+              3000
+            );
+            this.exerciseChanged.next(null);
           },
           complete: () => console.log('sub fetch exes completed'),
         })

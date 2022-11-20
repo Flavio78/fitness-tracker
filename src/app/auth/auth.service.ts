@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { TrainingService } from '../training/training.service';
@@ -16,7 +15,6 @@ export class AuthService {
     private router: Router,
     private afAuth: AngularFireAuth,
     private trainingService: TrainingService,
-    private snackbar: MatSnackBar,
     private uiService: UIService
   ) {}
 
@@ -55,7 +53,7 @@ export class AuthService {
         console.log('error', error);
         this.uiService.loadingStateChanged.next(false);
         // 2nd argument is null because we don't want to set an action
-        this.snackbar.open(error.message, null, { duration: 3000 });
+        this.uiService.showSnackbar(error.message, null, 3000);
       });
   }
 
@@ -70,7 +68,7 @@ export class AuthService {
       .catch((error) => {
         console.log('error', error);
         this.uiService.loadingStateChanged.next(false);
-        this.snackbar.open(error.message, null, { duration: 3000 });
+        this.uiService.showSnackbar(error.message, null, 3000);
       });
   }
 

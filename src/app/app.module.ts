@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,7 +31,6 @@ import { WelcomeComponent } from './welcome/welcome.component';
     MaterialModule,
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
     AuthModule,
     TrainingModule,
   ],

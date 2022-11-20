@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -15,6 +16,7 @@ import { SignupComponent } from './signup/signup.component';
     ReactiveFormsModule,
     MaterialModule,
     FlexLayoutModule,
+    AngularFireAuthModule,
   ],
 })
 export class AuthModule {}

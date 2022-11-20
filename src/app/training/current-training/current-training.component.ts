@@ -48,6 +48,3 @@ export class CurrentTrainingComponent implements OnInit {
     });
   }
 }
-function output() {
-  throw new Error('Function not implemented.');
-}

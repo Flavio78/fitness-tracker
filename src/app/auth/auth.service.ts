@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
+import * as fromApp from '../app.reducer';
 import { UIService } from '../shared/ui.service';
 import { TrainingService } from '../training/training.service';
 import { AuthData } from './auth-data.model';
@@ -15,7 +17,8 @@ export class AuthService {
     private router: Router,
     private afAuth: AngularFireAuth,
     private trainingService: TrainingService,
-    private uiService: UIService
+    private uiService: UIService,
+    private store: Store<{ ui: fromApp.State }>
   ) {}
 
   /*
@@ -42,32 +45,38 @@ export class AuthService {
   }
 
   registerUser(authData: AuthData) {
-    this.uiService.loadingStateChanged.next(true);
+    // this.uiService.loadingStateChanged.next(true);
+    this.store.dispatch({ type: fromApp.type.START_LOADING });
     this.afAuth
       .createUserWithEmailAndPassword(authData.email, authData.password)
       .then((result) => {
         console.log('auth create user result', result);
-        this.uiService.loadingStateChanged.next(false);
+        // this.uiService.loadingStateChanged.next(false);
+        this.store.dispatch({ type: fromApp.type.STOP_LOADING });
       })
       .catch((error) => {
         console.log('error', error);
-        this.uiService.loadingStateChanged.next(false);
+        // this.uiService.loadingStateChanged.next(false);
+        this.store.dispatch({ type: fromApp.type.STOP_LOADING });
         // 2nd argument is null because we don't want to set an action
         this.uiService.showSnackbar(error.message, null, 3000);
       });
   }
 
   login(authData: AuthData) {
-    this.uiService.loadingStateChanged.next(true);
+    // this.uiService.loadingStateChanged.next(true);
+    this.store.dispatch({ type: fromApp.type.START_LOADING });
     this.afAuth
       .signInWithEmailAndPassword(authData.email, authData.password)
       .then((result) => {
         console.log('auth login user result', result);
-        this.uiService.loadingStateChanged.next(false);
+        // this.uiService.loadingStateChanged.next(false);
+        this.store.dispatch({ type: fromApp.type.STOP_LOADING });
       })
       .catch((error) => {
         console.log('error', error);
-        this.uiService.loadingStateChanged.next(false);
+        // this.uiService.loadingStateChanged.next(false);
+        this.store.dispatch({ type: fromApp.type.STOP_LOADING });
         this.uiService.showSnackbar(error.message, null, 3000);
       });
   }

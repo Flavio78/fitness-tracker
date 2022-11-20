@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { UIService } from 'src/app/auth/shared/ui.service';
+import { UIService } from 'src/app/shared/ui.service';
 import { Exercise } from '../exercise.module';
 import { TrainingService } from '../training.service';
 

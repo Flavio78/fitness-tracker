@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { UIService } from '../shared/ui.service';
 import { TrainingService } from '../training/training.service';
 import { AuthData } from './auth-data.model';
-import { UIService } from './shared/ui.service';
 
 @Injectable()
 export class AuthService {

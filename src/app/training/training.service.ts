@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map, Subject, Subscription } from 'rxjs';
-import { UIService } from '../auth/shared/ui.service';
+import { UIService } from '../shared/ui.service';
 import { Exercise } from './exercise.module';
 @Injectable()
 export class TrainingService {

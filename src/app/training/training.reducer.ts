@@ -1,7 +1,7 @@
 //FIXME rename module into model
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromRoot from '../app.reducer';
-import { Exercise } from './exercise.module';
+import { Exercise } from './exercise.model';
 import {
   SET_AVAILABLE_TRAININGS,
   SET_FINISHED_TRAININGS,

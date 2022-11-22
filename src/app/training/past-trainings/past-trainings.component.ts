@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
-import { Exercise } from '../exercise.module';
+import { Exercise } from '../exercise.model';
 import * as fromTraining from '../training.reducer';
 import { TrainingService } from '../training.service';
 

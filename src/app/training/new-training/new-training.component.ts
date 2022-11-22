@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as fromRoot from '../../app.reducer';
-import { Exercise } from '../exercise.module';
+import { Exercise } from '../exercise.model';
 import * as fromTraining from '../training.reducer';
 import { TrainingService } from '../training.service';
 

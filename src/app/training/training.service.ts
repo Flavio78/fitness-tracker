@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Store } from '@ngrx/store';
-import { map, Subject, Subscription, take } from 'rxjs';
+import { map, Subscription, take } from 'rxjs';
 import * as UI from '../shared/ui.actions';
 import { UIService } from '../shared/ui.service';
 import { Exercise } from './exercise.module';
@@ -10,11 +10,6 @@ import * as fromTraining from './training.reducer';
 
 @Injectable()
 export class TrainingService {
-  private availableExercises: Exercise[] = [];
-  exerciseChanged = new Subject<Exercise>();
-  exercisesChanged = new Subject<Exercise[]>();
-  finishedExerciseChanged = new Subject<Exercise[]>();
-  private runningExercise: Exercise;
   private fbSubs: Subscription[] = [];
 
   private readonly FINISHED_EXERCISES = 'finishedExercises';

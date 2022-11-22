@@ -1,15 +1,10 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { Exercise } from '../exercise.module';
+import * as fromTraining from '../training.reducer';
 import { TrainingService } from '../training.service';
 
 @Component({
@@ -17,23 +12,24 @@ import { TrainingService } from '../training.service';
   templateUrl: './past-trainings.component.html',
   styleUrls: ['./past-trainings.component.css'],
 })
-export class PastTrainingComponent implements OnInit, AfterViewInit, OnDestroy {
+export class PastTrainingComponent implements OnInit, AfterViewInit {
   displayedColumns = ['date', 'name', 'duration', 'calories', 'state'];
   // MatTableDataSource expect an array and we define the type T of all the element of the array
   // It will automatically assumes it is an array defined as T[]
   dataSource = new MatTableDataSource<Exercise>();
-  private exChangedSubscription: Subscription;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private trainingService: TrainingService) {}
+  constructor(
+    private trainingService: TrainingService,
+    private store: Store<fromTraining.State>
+  ) {}
 
   ngOnInit(): void {
-    this.exChangedSubscription =
-      this.trainingService.finishedExerciseChanged.subscribe(
-        (exercises: Exercise[]) => (this.dataSource.data = exercises)
-      );
+    this.store
+      .select(fromTraining.getFinishedExercises)
+      .subscribe((exercises: Exercise[]) => (this.dataSource.data = exercises));
     this.trainingService.fetchCompletedOrCancelledExercises();
   }
 
@@ -48,11 +44,5 @@ export class PastTrainingComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dataSource.filter = (event.target as HTMLInputElement).value
       .trim()
       .toLowerCase();
-  }
-
-  ngOnDestroy(): void {
-    if (this.exChangedSubscription) {
-      this.exChangedSubscription.unsubscribe();
-    }
   }
 }

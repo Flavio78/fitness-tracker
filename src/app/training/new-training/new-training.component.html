@@ -3,9 +3,9 @@
     <mat-card fxFlex.xs="100%" fxFlex="400px">
       <mat-card-title fxLayoutAlign="center">Time to start a workout!</mat-card-title>
       <mat-card-content fxLayoutAlign="center">
-        <mat-form-field *ngIf="!(this.isLoading$ | async) && this.exercises" fxLayoutAlign="center">
+        <mat-form-field *ngIf="!(this.isLoading$ | async) && this.exercises$ | async" fxLayoutAlign="center">
           <mat-select placeholder="Choose Exercise" ngModel name="exercise" required>
-            <mat-option *ngFor="let exercise of this.exercises" [value]="exercise.id">
+            <mat-option *ngFor="let exercise of this.exercises$ | async" [value]="exercise.id">
               {{ exercise.name }}
             </mat-option>
           </mat-select>
@@ -13,8 +13,9 @@
         <mat-spinner *ngIf="this.isLoading$ | async"></mat-spinner>
       </mat-card-content>
       <mat-card-actions *ngIf="!(this.isLoading$ | async)" fxLayoutAlign="center">
-        <button *ngIf="this.exercises" type="submit" mat-button [disabled]="f.invalid">Start</button>
-        <button *ngIf="!this.exercises" type="button" mat-button (click)="this.fetchExercises()">Fetch Again</button>
+        <button *ngIf="this.exercises$ | async" type="submit" mat-button [disabled]="f.invalid">Start</button>
+        <button *ngIf="!(this.exercises$ | async)" type="button" mat-button (click)="this.fetchExercises()">Fetch
+          Again</button>
       </mat-card-actions>
     </mat-card>
   </form>

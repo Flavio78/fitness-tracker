@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
 
 import { SharedModule } from '../shared/shared.module';
 import { CurrentTrainingComponent } from './current-training/current-training.component';
@@ -7,6 +8,7 @@ import { NewTrainingComponent } from './new-training/new-training.component';
 import { PastTrainingComponent } from './past-trainings/past-trainings.component';
 import { TrainingRoutingModule } from './training-routing.module';
 import { TrainingComponent } from './training.component';
+import { trainingReducer } from './training.reducer';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,11 @@ import { TrainingComponent } from './training.component';
     CurrentTrainingComponent,
     StopTrainingComponent,
   ],
-  imports: [SharedModule, TrainingRoutingModule],
+  imports: [
+    SharedModule,
+    TrainingRoutingModule,
+    // with forFeature I have to give this slice a unique name: 'training'
+    StoreModule.forFeature('training', trainingReducer),
+  ],
 })
 export class TrainingModule {}
